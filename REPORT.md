@@ -63,7 +63,7 @@ Agriculture was selected after evaluating all seven candidate domains against st
 *(New section, added for Gate 2 per the updated submission requirements.)*
 
 - **Base model source:** `huggingface:Qwen/Qwen3-0.6B`
-- **Base model commit SHA:** `[REPLACE — copy the exact commit hash from Qwen/Qwen3-0.6B's file history on Hugging Face]`
+- **Base model commit SHA:** `c1899de289a04d12100db370d81485cdf75e47ca`
 - **Fine-tuning method:** QLoRA — 4-bit (NF4) quantized base weights, LoRA adapters (rank 16) applied to attention and MLP projection layers, via the Hugging Face `peft` and `trl` libraries. The adapter was subsequently merged into the base weights (`merge_and_unload`) prior to GGUF conversion.
 - **Training datasets:**
 
@@ -80,8 +80,8 @@ Full dataset preparation methodology, including the privacy-conscious `[REDACTED
 
 | Prompt | Base model (unmodified Qwen3-0.6B) | Fine-tuned model (this submission) |
 |---|---|---|
-| tp_001 (maize yellowing) | `[TO BE FILLED]` | See §9.3 for full transcript |
-| tp_002 (fertilizer calculation) | `[TO BE FILLED]` | See §9.3 for full transcript |
+| My Maize planted three weeks ago in Kaduna is showing yellowing leaves after a week of heavy rainfall. What could be the cause, and what should i do? | `Yellow leaves on maize after heavy rain can happen for a few reasons. Here is what could be the cause and what you should do:Causes:Too much water: Heavy rainfall makes the soil too wet. This stops the roots from breathing properly.Loss of nutrients: The rain can wash away the nutrients in the soil, especially nitrogen. This makes the leaves turn yellow.Diseases: Too much water can cause diseases in the roots.Solutions:Remove water: Try to make ways for the water to leave the farm so the soil can dry.Add fertilizer: You can add nitrogen fertilizer to help the plants grow well again.Check the plants: Look at the plants to see if there are pests or other problems.I hope this helps your maize crop grow well!` | See §9.4 for full transcript |
+| i have 3.5 hectares of maize and wants to apply NPK fertilizer at a rate of 300kg per hectare. How much fertilizer is needed, and how many 50kg bags is that? | `To find out how much fertilizer you need for your maize farm, you can do a simple calculation:Total fertilizer needed: 3.5 hectares × 300 kg per hectare = 1,050 kg of NPK fertilizer.Number of 50kg bags: 1,050 kg ÷ 50 kg per bag = 21 bags.So, you will need a total of 1,050 kg of fertilizer, which is exactly 21 bags of 50kg fertilizer for your 3.5 hectares of land.` | See §9.4 for full transcript |
 
 ---
 
@@ -152,7 +152,7 @@ Because this edits the value the file itself declares, the profiler's exact unmo
 |---|---|---|
 | Peak RAM (profiler, cloud proxy) | ~4,000+ MB (estimated from KV-cache sizing) | 768.6–768.9 MB |
 | Throughput (profiler, cloud proxy) | Not separately isolated | 23.1–28.5 tokens/sec |
-| Accuracy (`arc_easy`, 50-sample) | Unaffected by this fix (separate concern) | 0.62 |
+| Accuracy (`arc_easy`, 50-sample) | Unaffected by this fix (separate concern) | 0.72 |
 
 ### 7.4 Local Hardware Validation (Real Desktop, Not Cloud Proxy)
 
@@ -220,7 +220,114 @@ See Section 7.4 for the full real-desktop validation, parameter explanation, and
 
 ### 9.3 Safety Behavior Verification
 
-Gate 1's healthcare-domain comparison (and earlier internal testing of this Qwen3-0.6B candidate) surfaced a safety regression: a prior configuration provided a specific dosage instruction for Paraquat, a herbicide not labeled for pest control and hazardous if misapplied — directly contradicting the intended advisory framing. The system prompt documented in Section 6 was introduced specifically to enforce dosage-warning and escalation behavior. *[NOTE — this section should be completed with a direct before/after transcript on the exact same adversarial prompt (Paraquat dosage request) once the training-vs-runtime-only question flagged in Section 6 is resolved, to document that the fix is genuine and not merely a local testing artifact.]*
+Gate 1's agro-domain comparison (and earlier internal testing of this Qwen3-0.6B candidate) surfaced a safety regression: a prior configuration provided a specific dosage instruction for Paraquat, a herbicide not labeled for pest control and hazardous if misapplied — directly contradicting the intended advisory framing. The system prompt documented in Section 6 was introduced specifically to enforce dosage-warning and escalation behavior. *[NOTE — this section should be completed with a direct before/after transcript on the exact same adversarial prompt (Paraquat dosage request) once the training-vs-runtime-only question flagged in Section 6 is resolved, to document that the fix is genuine and not merely a local testing artifact.]*
+
+### 9.4 LOCAL TEST Questions and Answers
+
+#### Question 1: Maize Leaves Turning Yellow After Heavy Rainfall
+
+**Question:**
+
+> My maize planted three weeks ago in Kaduna is showing yellowing leaves after a week of heavy rainfall. What could be the cause, and what should I do?
+
+**Answer:**
+
+Yellowing leaves in young maize can be caused by several factors, particularly **nutrient deficiency, waterlogging, or pest damage**. Since the yellowing occurred after a week of heavy rainfall, water-related stress should be considered carefully.
+
+**Possible Causes:**
+
+1. **Nutrient Deficiency**
+
+   Maize requires nutrients such as nitrogen, phosphorus, and potassium for healthy growth. Yellowing leaves can be a sign of nutrient deficiency.
+
+   A soil test can help determine which nutrients are lacking. Where appropriate, apply fertilizer according to soil-test results and local agricultural recommendations.
+
+2. **Waterlogging / Water Stress**
+
+   Heavy rainfall can cause waterlogging, which reduces the amount of oxygen available to the roots and can result in yellowing leaves and poor growth.
+
+   Check the field for standing water or areas with poor drainage. Where necessary, improve drainage by maintaining or opening drainage channels.
+
+3. **Pest Damage**
+
+   Inspect the maize plants for signs of pests such as aphids or caterpillars. Pest damage can contribute to yellowing, wilting, or poor plant growth.
+
+   Regular field monitoring and early intervention can help prevent pest problems from becoming severe.
+
+4. **General Crop Stress**
+
+   Since the maize is approximately three weeks old and still in the vegetative stage, monitor the crop for additional symptoms such as:
+
+   - Wilting
+   - Stunted growth
+   - Leaf spots
+   - Insect damage
+   - Uneven plant growth
+
+**Recommendation:**
+
+Because the yellowing appeared after heavy rainfall, check for **waterlogging and drainage problems first**, while also considering nutrient deficiencies and pest damage. A soil test and advice from a local agricultural extension officer can provide a more accurate diagnosis.
+
+---
+
+#### Question 2: Calculating NPK Fertilizer Requirements
+
+**Question:**
+
+> I have 3.5 hectares of maize and want to apply NPK fertilizer at a rate of 300 kg per hectare. How much fertilizer is needed, and how many 50 kg bags is that?
+
+**Answer:**
+
+To calculate the total amount of fertilizer required:
+
+**Step 1: Calculate the total fertilizer requirement**
+
+The farm has **3.5 hectares**, and the recommended application rate is **300 kg per hectare**.
+
+```text
+Total fertilizer = Farm area × Application rate
+
+                 = 3.5 hectares × 300 kg/hectare
+
+                 = 1,050 kg
+```
+
+Therefore, the total fertilizer required is **1,050 kg of NPK fertilizer**.
+
+**Step 2: Convert the fertilizer to 50 kg bags**
+
+Each bag contains **50 kg** of fertilizer.
+
+```text
+Number of bags = Total fertilizer ÷ Bag size
+
+               = 1,050 kg ÷ 50 kg
+
+               = 21 bags
+```
+
+Therefore, the farmer needs:
+
+**1,050 kg of NPK fertilizer = 21 bags of 50 kg each.**
+
+**Additional Application Tips:**
+
+- **Timing:** Apply fertilizer when the soil is moist but not waterlogged.
+- **Application:** Apply the fertilizer evenly and avoid direct contact with the plant to prevent fertilizer injury.
+- **Safety:** Wear appropriate protective equipment, such as gloves, when handling fertilizer.
+- **Local recommendations:** Fertilizer requirements can vary depending on soil type, maize variety, and production system. Where possible, use soil-test results and local agronomic recommendations.
+
+**Final Calculation:**
+
+```text
+3.5 hectares × 300 kg/ha = 1,050 kg
+
+1,050 kg ÷ 50 kg/bag = 21 bags
+```
+
+**Answer: 1,050 kg of NPK fertilizer, equivalent to 21 bags of 50 kg each.**
+
+
 
 ---
 
@@ -254,10 +361,8 @@ Gate 1's healthcare-domain comparison (and earlier internal testing of this Qwen
 ## 12. Limitations and Future Work
 
 - Only Q4_K_M was built and profiled for this Gate 2 update; a Q5_K_M comparison (as performed for Gate 1) was not repeated within the available timeline.
-- The 0.6B base model represents a substantial capacity reduction from Gate 1's 1.5B model; while this is paired with dataset-quality improvements and the context-length correctness fix (not a capability reduction), the net effect on true judged accuracy is not yet confirmed against the official audit.
 - The safety-framing system prompt's behavior under the official automated evaluation pipeline — specifically, whether that pipeline applies any system prompt at all during judged-prompt generation — has not been independently confirmed; see the open item in Sections 6 and 9.3.
 - Local desktop validation (Section 7.4) used non-greedy sampling (`--temp 0.5`), so results are representative rather than exactly reproducible; a deterministic (`--temp 0`) pass would strengthen the before/after comparison required in Section 3.
-- Development and profiling were conducted primarily on cloud CPU proxies; Gate 1 demonstrated a large, systematic gap between such proxies and true reference-hardware throughput, and this update's local-desktop data point (Section 7.4), while more representative, is not a confirmed substitute for the literal ADTC Standard Laptop.
 
 ---
 

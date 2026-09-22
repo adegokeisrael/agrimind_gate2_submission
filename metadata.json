@@ -1,5 +1,5 @@
 {
-  "team_id": "AIDOL",
+  "team_id": "AgriMind: Offline AI Model for African Farmers",
   "domain": "agriculture",
   "language_scope": ["en"],
   "african_alpha_claim": true,
@@ -16,7 +16,7 @@
   },
   "provenance": {
     "base_model_source": "huggingface:Qwen/Qwen3-0.6B",
-    "base_model_commit_sha": "REPLACE_WITH_COMMIT_SHA_FROM_HF_HISTORY",
+    "base_model_commit_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
     "fine_tuning_method": "qlora",
     "training_datasets": [
       "DigiGreen/farmerchat-queries-large (Nigeria subset, CC-BY 4.0)",
@@ -26,11 +26,11 @@
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "Maize planted three weeks ago in Kaduna is showing yellowing leaves after a week of heavy rainfall. What could be the cause, and what should the farmer do?"
+      "prompt": "My Maize planted three weeks ago in Kaduna is showing yellowing leaves after a week of heavy rainfall. What could be the cause, and what should the farmer do?"
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "A farmer has 3.5 hectares of maize and wants to apply NPK fertilizer at a rate of 300kg per hectare. How much fertilizer is needed, and how many 50kg bags is that?"
+      "prompt": "I have a 3.5 hectares of maize and wants to apply NPK fertilizer at a rate of 300kg per hectare. How much fertilizer is needed, and how many 50kg bags is that?"
     }
   ],
   "model": {
