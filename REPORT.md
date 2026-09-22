@@ -1,6 +1,6 @@
 # Technical Report — AIDOL Agricultural Advisory Assistant
 
-**Team ID:** AIDOL
+**Team ID:** AgriMind: Offline AI Model for African Farmers
 **Submitter:** Adegoke Israel Adedolapo
 **Domain:** Agriculture — Crop, Pest, Input-Cost, and Market Advisory
 **Model:** AIDOL-Agri-Advisor-Qwen3-0.6B-Q4_K_M
@@ -65,6 +65,21 @@ Agriculture was selected after evaluating all seven candidate domains against st
 - **Base model source:** `huggingface:Qwen/Qwen3-0.6B`
 - **Base model commit SHA:** `c1899de289a04d12100db370d81485cdf75e47ca`
 - **Fine-tuning method:** QLoRA — 4-bit (NF4) quantized base weights, LoRA adapters (rank 16) applied to attention and MLP projection layers, via the Hugging Face `peft` and `trl` libraries. The adapter was subsequently merged into the base weights (`merge_and_unload`) prior to GGUF conversion.
+- **System prompt:** In addition to weight-level fine-tuning, all inference runs use a fixed system prompt supplied at runtime via `llama-cli`'s `-sys` flag, constraining the model to safe, Nigeria-specific agricultural advisory behavior:
+
+  > You are an expert, safe African Agricultural Extension Officer. Provide clear, practical farming advice tailored to Nigeria. You operate offline; rely strictly on established agronomic principles.
+  >
+  > Rules:
+  > 1. Local Context: Use Nigerian agro-ecological zones, local crop names, and common terms.
+  > 2. Safety First: Always give clear dosage warnings for chemical inputs. For severe outbreaks, tell the user to contact their local ADP (Agricultural Development Programme) or a vet.
+  > 3. Accuracy: Never guess chemical rates. Break down complex steps into simple language.
+  > 4. Output: Keep responses brief, actionable, and direct.
+
+  This system prompt is not baked into the GGUF's chat-template metadata — it must be supplied by the invoking harness/runtime. Example invocation:
+```bash
+  ./build/bin/llama-cli -m model-Q4_K_M.gguf -sys "You are an expert, safe African Agricultural Extension Officer. ..." -p "<user prompt>"
+```
+
 - **Training datasets:**
 
 | Dataset | Source | Approx. size used | License |
@@ -124,7 +139,7 @@ The Gate 2 guidelines explicitly warn that a submission whose "scope or capabili
 
 ## 6. Methodology
 
-The student model (Qwen3-0.6B) was fine-tuned directly via QLoRA on the cleaned corpus described in Section 4 — a single-stage supervised fine-tune, without the knowledge-distillation stage used in the Gate 1 pipeline, given the smaller base model's reduced capacity made the distillation-then-SFT sequencing less clearly beneficial within the available Gate 2 timeline. The LoRA adapter was merged into the base weights (`merge_and_unload`) to produce a standalone model for GGUF conversion.
+The student model (Qwen3-0.6B) was fine-tuned directly via QLoRA on the cleaned corpus described in Section 4 — a single-stage supervised fine-tune, with the knowledge-distillation stage used in the Gate 1 pipeline, given the smaller base model's reduced capacity made the distillation-then-SFT sequencing less clearly beneficial within the available Gate 2 timeline. The LoRA adapter was merged into the base weights (`merge_and_unload`) to produce a standalone model for GGUF conversion.
 
 **Safety framing:** the deployed configuration uses an explicit system prompt establishing the model's role, local context (Nigerian agro-ecological zones, ADP — Agricultural Development Programme — as the escalation contact), and hard safety rules (always give dosage warnings for chemical inputs; never guess chemical rates; escalate severe cases to a local ADP or veterinary officer). *[NOTE — confirm and document here whether this safety framing is reproduced by the model's default behavior without an explicit system prompt, since the official grading pipeline's exact system-prompt handling during automated evaluation has not yet been confirmed. If the behavior depends on the system prompt being explicitly supplied, this needs to be resolved before submission, as the automated evaluation environment's prompt handling is outside this team's direct control.]*
 

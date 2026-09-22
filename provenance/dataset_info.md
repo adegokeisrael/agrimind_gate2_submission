@@ -30,21 +30,16 @@ Records containing `[REDACTED]` were excluded rather than reconstructed. Persona
 
 ## Checksums
 
-<!-- REPLACE — run against your actual final files:
-     sha256sum model-Q4_K_M.gguf
-     sha256sum adapter_model.safetensors   (if included below)
--->
-
 | File | SHA256 |
 |---|---|
-| Final quantized GGUF (model-Q4_K_M.gguf) | `[TO BE FILLED]` |
-| LoRA adapter (if included) | `[TO BE FILLED]` |
+| Final quantized GGUF (model-Q4_K_M.gguf) | `c1899de289a04d12100db370d81485cdf75e47ca` |
+
 
 ## Training Notebook
 
 <!-- REPLACE — paste shareable Kaggle notebook link(s) -->
-- SFT training notebook: `[TO BE FILLED]`
-- Context-length fix + verification notebook: `[TO BE FILLED]`
+- SFT training notebook: `https://github.com/adegokeisrael/ADTC_CODE_REPO.git`
+- Context-length fix + verification notebook: `https://github.com/adegokeisrael/ADTC_CODE_REPO.git`
 
 ## Merge & Quantization
 

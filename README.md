@@ -81,9 +81,9 @@ Q4_K_M and Q5_K_M were both built and profiled on real hardware measurements. Q4
 
 | Metric | Value |
 |---|---|
-| Tokens/sec (generation) | 10.24 |
-| Peak RAM | 1.67 GB |
-| Accuracy (`arc_easy`, 50-sample smoke test) | 0.70 |
+| Tokens/sec (generation) | 15.24 |
+| Peak RAM | 799 MB |
+| Accuracy (`arc_easy`, 50-sample smoke test) | 0.62 |
 | Thermal throttling | Not detected |
 
 Full benchmark methodology and results in [`REPORT.md`](REPORT.md#benchmarks).

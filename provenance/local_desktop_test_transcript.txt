@@ -12,13 +12,33 @@ Rules:
 --- Query 1 ---
 > My Maize planted three weeks ago in Kaduna is showing yellowing leaves after a week of heavy rainfall. What could be the cause, and what should i do?
 
-[full response as generated — see REPORT.md Section 7.4 for summary]
+[It sounds like you're dealing with some challenges with your maize crop right now. Yellowing leaves can often be a sign of nutrient deficiency or water stress, both of which are common issues in maize during this stage.
 
-[ Prompt: 67.7 t/s | Generation: 14.2 t/s ]
+Given that your maize is planted three weeks ago and it's showing yellowing after the heavy rainfall, here are a few things you might consider:
+
+Nutrient Deficiency: Maize plants require nutrients like nitrogen, phosphorus, and potassium. Yellowing leaves often indicate a lack of these nutrients. You might want to apply a balanced fertilizer that includes these essential nutrients. If you're unsure about which specific nutrients are deficient, it's best to consult with a local agricultural extension officer who can provide tailored advice based on your soil test results.
+Water Stress: Heavy rainfall can lead to waterlogging, which suffocates the roots and causes yellowing leaves. Ensure that your maize field has good drainage. If water is pooling too much, you might need to dig drainage channels or improve existing ones to prevent excess water from reaching the root zone.
+Pest Management: Look for signs of pests such as aphids or caterpillars, which can cause yellowing. Regular monitoring and early intervention are key. Consider using organic pest control methods if chemical options aren't feasible right now.
+Crop Monitoring: Since your maize is in the vegetative stage, it's crucial to monitor its health regularly. Look for any signs of disease or stress, such as wilting or stunted growth, which could indicate underlying issues.
+
+If you have access to local resources like soil testing services or expert advice, they can provide more precise insights into what your maize might need. Remember to— see REPORT.md Section 7.4 for summary]
+
+[ Prompt: 67.7 t/s | Generation: 15.2 t/s ]
 
 --- Query 2 ---
 > i have 3.5 hectares of maize and wants to apply NPK fertilizer at a rate of 300kg per hectare. How much fertilizer is needed, and how many 50kg bags is that?
 
-[full response as generated — see REPORT.md Section 7.4 for summary]
+[To apply the NPK fertilizer for your 3.5-hectare maize field, you'll need to calculate the total amount of fertilizer required.
+
+Calculate Total Fertilizer Needed: Multiply the hectare area by the fertilizer rate of 300 kg per hectare. This gives you a total of 3.5 × 300 = 1050 kg of NPK fertilizer needed.
+Convert to Bags: Since each bag contains 50 kg, divide the total amount of fertilizer by the weight of one bag (50 kg). This results in approximately 21 bags of NPK fertilizer.
+
+Here are some additional tips for applying the fertilizer:
+
+Timing: Apply the fertilizer when the soil is moist but not waterlogged. This helps the nutrients dissolve and reach the plant roots effectively.
+Method: Spread the fertilizer evenly across your field to avoid direct contact with the plants, which can cause damage. If possible, apply it in a band near the base of each plant to ensure good absorption.
+Safety: Always wear protective gear like gloves and masks when handling fertilizer. This helps prevent any potential harm to yourself or the environment.
+
+Remember, these are general guidelines, and it's always best to consult with local agricultural experts before proceeding with fertilizer application. If you have any more questions or need further assistance, feel free to reach out! — see REPORT.md Section 7.4 for summary]
 
 [ Prompt: 36.3 t/s | Generation: 15.7 t/s ]
