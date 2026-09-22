@@ -2,7 +2,7 @@
 
 ![Domain](https://img.shields.io/badge/Domain-Agriculture-brightgreen)
 ![Offline](https://img.shields.io/badge/Deployment-100%25%20Offline-critical)
-![Base Model](https://img.shields.io/badge/Base%20Model-Qwen2.5--1.5B--Instruct-8A2BE2)
+![Base Model](https://img.shields.io/badge/Base%20Model-Qwen3.0--0.6B--Instruct-8A2BE2)
 ![Teacher Model](https://img.shields.io/badge/Distillation%20Teacher-Qwen2.5--7B--Instruct-9370DB)
 ![Format](https://img.shields.io/badge/Format-GGUF-orange)
 ![Runtime](https://img.shields.io/badge/Runtime-llama.cpp-000000)
@@ -65,11 +65,11 @@ Agriculture and Healthcare & Medical were each built to equivalent depth and com
 
 ## Why This Model
 
-**Qwen2.5-1.5B-Instruct** was selected as the base model for its instruction-following quality relative to size, Apache 2.0 licensing, mature GGUF conversion support, and a resource footprint that leaves substantial headroom under the competition's 7GB memory budget.
+**Qwen3.0-0.6B** was selected as the base model for its instruction-following quality relative to size, Apache 2.0 licensing, mature GGUF conversion support, and a resource footprint that leaves substantial headroom under the competition's 7GB memory budget.
 
 ## Why Distillation
 
-A direct supervised fine-tuning baseline was trained first to establish whether distillation would justify its added engineering cost. Based on that result, a distillation stage — Qwen2.5-7B-Instruct as a frozen 4-bit teacher, response-masked and temperature-scaled CE + KL divergence loss — was added prior to domain fine-tuning, to transfer general reasoning quality into the 1.5B student before narrowing it to the agriculture domain.
+A direct supervised fine-tuning baseline was trained first to establish whether distillation would justify its added engineering cost. Based on that result, a distillation stage — Qwen2.5-7B-Instruct as a frozen 4-bit teacher, response-masked and temperature-scaled CE + KL divergence loss — was added prior to domain fine-tuning, to transfer general reasoning quality into the 0.6B student before narrowing it to the agriculture domain.
 
 ## Why This Quantization
 

@@ -127,7 +127,7 @@ Geographic information (state, region) was deliberately **retained**, since it i
 Gate 1 feedback and the organizers' own published semifinalist statistics (median Performance score 24.50, mode 24.47 — closely matching this team's own audited 24.47) confirmed that development-proxy throughput measurements (cloud CPU, e.g. Kaggle) substantially overstate real reference-hardware performance for every team, not this one specifically. Rather than treat this as unfixable, a smaller base model was evaluated as one lever toward closing that gap, alongside the dataset-quality work described in Section 4.
 
 Qwen3-0.6B was selected specifically because:
-- It is roughly 2.5× smaller than the Gate 1 base model (Qwen2.5-1.5B-Instruct), directly reducing both memory footprint and per-token compute cost.
+- It is roughly 2.5× smaller than the Gate 1 base model (Qwen2.5-1.5B-Instruct), directly reducing both memory footprint and per-token compute cost and the emperical result on quality too.
 - Qwen3's architecture includes recent training and instruction-tuning improvements over Qwen2.5 at a given parameter count.
 - Apache 2.0 licensed, consistent with the redistribution requirement for public GGUF weights.
 
