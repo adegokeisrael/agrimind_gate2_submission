@@ -1,4 +1,4 @@
-# AIDOL — Offline Agricultural Advisory Assistant
+# AGRIMIND — Offline Agricultural Advisory Assistant
 
 ![Domain](https://img.shields.io/badge/Domain-Agriculture-brightgreen)
 ![Offline](https://img.shields.io/badge/Deployment-100%25%20Offline-critical)
