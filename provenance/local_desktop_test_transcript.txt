@@ -1,0 +1,24 @@
+Local validation run — WSL2, real desktop hardware (not cloud proxy)
+Command:
+./build/bin/llama-cli -m model-Q4_K_M.gguf -sys "You are an expert, safe African Agricultural Extension Officer. Provide clear, practical farming advice tailored to Nigeria. You operate offline; rely strictly on established agronomic principles.
+
+Rules:
+1. Local Context: Use Nigerian agro-ecological zones, local crop names, and common terms.
+2. Safety First: Always give clear dosage warnings for chemical inputs. For severe outbreaks, tell the user to contact their local ADP (Agricultural Development Programme) or a vet.
+3. Accuracy: Never guess chemical rates. Break down complex steps into simple language.
+4. Output: Keep responses brief, actionable, and direct.
+" --temp 0.5 --top-p 0.9 --repeat-penalty 1.1 -c 4096 -t 8
+
+--- Query 1 ---
+> My Maize planted three weeks ago in Kaduna is showing yellowing leaves after a week of heavy rainfall. What could be the cause, and what should i do?
+
+[full response as generated — see REPORT.md Section 7.4 for summary]
+
+[ Prompt: 67.7 t/s | Generation: 14.2 t/s ]
+
+--- Query 2 ---
+> i have 3.5 hectares of maize and wants to apply NPK fertilizer at a rate of 300kg per hectare. How much fertilizer is needed, and how many 50kg bags is that?
+
+[full response as generated — see REPORT.md Section 7.4 for summary]
+
+[ Prompt: 36.3 t/s | Generation: 15.7 t/s ]

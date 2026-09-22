@@ -1,0 +1,118 @@
+<svg viewBox="0 0 1400 1350" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4A4A4A"/>
+    </marker>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2F5233"/>
+      <stop offset="100%" stop-color="#4E8C50"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1400" height="1350" fill="#FBFBF8"/>
+
+  <rect x="0" y="0" width="1400" height="90" fill="url(#headerGrad)"/>
+  <text x="700" y="38" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="700">AIDOL — Offline Agricultural Advisory Assistant</text>
+  <text x="700" y="64" text-anchor="middle" fill="#E4F0E0" font-size="14">Gate 2 — Qwen3-0.6B, Fine-Tuned + Context-Length Optimized</text>
+
+  <!-- 1: DATA -->
+  <text x="60" y="130" font-size="16" font-weight="700" fill="#2F5233">1 — Data Sources</text>
+  <g font-size="12">
+    <rect x="60" y="145" width="420" height="55" rx="10" fill="#DCEBFB" stroke="#3E7CB1" stroke-width="1.5"/>
+    <text x="270" y="167" text-anchor="middle" font-weight="600" fill="#1C3D5A">DigiGreen/farmerchat-queries-large</text>
+    <text x="270" y="185" text-anchor="middle" fill="#3E5670">Nigeria subset, 38,180 rows, CC-BY 4.0</text>
+
+    <rect x="510" y="145" width="420" height="55" rx="10" fill="#DCEBFB" stroke="#3E7CB1" stroke-width="1.5"/>
+    <text x="720" y="167" text-anchor="middle" font-weight="600" fill="#1C3D5A">KisanVaani/agriculture-qa-english-only</text>
+    <text x="720" y="185" text-anchor="middle" fill="#3E5670">~22,615 rows, Apache 2.0</text>
+  </g>
+  <path d="M270,200 L270,225 L600,225" stroke="#4A4A4A" stroke-width="1.5" fill="none"/>
+  <path d="M720,200 L720,225 L600,225" stroke="#4A4A4A" stroke-width="1.5" fill="none"/>
+  <line x1="600" y1="225" x2="600" y2="250" stroke="#4A4A4A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="420" y="255" width="360" height="50" rx="10" fill="#CDE7CF" stroke="#2F5233" stroke-width="1.5"/>
+  <text x="600" y="285" text-anchor="middle" font-weight="700" fill="#1E3A20" font-size="13.5">Cleaned Corpus (~60K rows, deduplicated)</text>
+
+  <line x1="600" y1="305" x2="600" y2="340" stroke="#4A4A4A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 2: FINE-TUNING -->
+  <text x="60" y="370" font-size="16" font-weight="700" fill="#C97A1F">2 — Fine-Tuning</text>
+  <rect x="400" y="385" width="400" height="60" rx="10" fill="#FDE8CC" stroke="#C97A1F" stroke-width="1.5"/>
+  <text x="600" y="410" text-anchor="middle" font-weight="700" fill="#5A3A0F" font-size="13.5">QLoRA — Qwen3-0.6B base</text>
+  <text x="600" y="430" text-anchor="middle" fill="#6B4A20" font-size="12">4-bit NF4, rank-16 adapter, merged post-training</text>
+
+  <line x1="600" y1="445" x2="600" y2="480" stroke="#4A4A4A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="450" y="485" width="300" height="50" rx="10" fill="#FDE8CC" stroke="#C97A1F" stroke-width="1.5"/>
+  <text x="600" y="515" text-anchor="middle" font-weight="700" fill="#5A3A0F" font-size="13.5">Merged Model → GGUF (f16)</text>
+
+  <line x1="600" y1="535" x2="600" y2="570" stroke="#4A4A4A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="450" y="575" width="300" height="50" rx="10" fill="#D2F1EE" stroke="#1E7A72" stroke-width="1.5"/>
+  <text x="600" y="605" text-anchor="middle" font-weight="700" fill="#0F4C47" font-size="13.5">Quantize → Q4_K_M</text>
+
+  <line x1="600" y1="625" x2="600" y2="660" stroke="#4A4A4A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 3: THE INNOVATION — highlighted box -->
+  <rect x="150" y="670" width="900" height="220" rx="14" fill="#FCEFDA" stroke="#8C5A1E" stroke-width="2.5"/>
+  <text x="600" y="700" text-anchor="middle" font-weight="700" fill="#5A3A0F" font-size="16">3 — KEY INNOVATION: GGUF Context-Length Metadata Fix</text>
+
+  <text x="185" y="725" font-size="12.5" fill="#5A3A0F" font-weight="600">Problem diagnosed:</text>
+  <text x="185" y="743" font-size="12" fill="#6B4A20">Qwen3-0.6B's GGUF shipped with qwen3.context_length = 40,960 baked into</text>
+  <text x="185" y="759" font-size="12" fill="#6B4A20">its metadata. llama-bench (used by the official profiler) never passes -c,</text>
+  <text x="185" y="775" font-size="12" fill="#6B4A20">so it silently loads this full context by default — causing a ~4GB peak</text>
+  <text x="185" y="791" font-size="12" fill="#6B4A20">RAM allocation for KV-cache alone, on a model whose weights are ~380MB.</text>
+
+  <text x="185" y="818" font-size="12.5" fill="#5A3A0F" font-weight="600">Fix applied:</text>
+  <text x="185" y="836" font-size="12" fill="#6B4A20">gguf_set_metadata.py used to edit qwen3.context_length directly in the</text>
+  <text x="185" y="852" font-size="12" fill="#6B4A20">already-quantized file — no reconversion needed — setting it to 4096.</text>
+  <text x="185" y="868" font-size="12" fill="#6B4A20">Since llama-bench's default (-c 0) means "load from model metadata," this</text>
+  <text x="185" y="884" font-size="12" fill="#6B4A20">single edit makes the profiler's exact unmodified invocation use 4096.</text>
+
+  <rect x="770" y="725" width="255" height="160" rx="8" fill="#FFFFFF" stroke="#8C5A1E" stroke-width="1.2"/>
+  <text x="897" y="745" text-anchor="middle" font-size="12" font-weight="700" fill="#5A3A0F">Measured Result</text>
+  <text x="897" y="765" text-anchor="middle" font-size="11" fill="#333333">Peak RAM: ~4GB → 768.6MB</text>
+  <text x="897" y="782" text-anchor="middle" font-size="11" fill="#333333">TPS: 28.5 (profiler, cloud proxy)</text>
+  <text x="897" y="799" text-anchor="middle" font-size="11" fill="#333333">Local (real desktop, WSL2):</text>
+  <text x="897" y="816" text-anchor="middle" font-size="11" fill="#333333">14.2–15.7 tok/s generation</text>
+  <text x="897" y="833" text-anchor="middle" font-size="11" fill="#333333">67.7–36.3 tok/s prompt proc.</text>
+  <text x="897" y="855" text-anchor="middle" font-size="10.5" fill="#8C5A1E" font-weight="600">See REPORT.md §6 for full</text>
+  <text x="897" y="870" text-anchor="middle" font-size="10.5" fill="#8C5A1E" font-weight="600">runtime parameter breakdown</text>
+
+  <line x1="600" y1="890" x2="600" y2="925" stroke="#4A4A4A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 4: EVALUATION -->
+  <text x="60" y="955" font-size="16" font-weight="700" fill="#B5323F">4 — Evaluation</text>
+  <rect x="400" y="970" width="400" height="60" rx="10" fill="#FADADD" stroke="#B5323F" stroke-width="1.5"/>
+  <text x="600" y="995" text-anchor="middle" font-weight="700" fill="#7A1F29" font-size="13.5">adtc-profiler (context-fixed GGUF)</text>
+  <text x="600" y="1015" text-anchor="middle" fill="#8A2A34" font-size="12">Throughput / Memory / arc_easy accuracy</text>
+
+  <line x1="600" y1="1030" x2="600" y2="1065" stroke="#4A4A4A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="450" y="1070" width="300" height="220" rx="10" fill="url(#headerGrad)"/>
+  <text x="600" y="1105" text-anchor="middle" fill="#FFFFFF" font-weight="700" font-size="15">Final Submission</text>
+  <text x="600" y="1130" text-anchor="middle" fill="#E4F0E0" font-size="12">AIDOL-Agri-Advisor-</text>
+  <text x="600" y="1148" text-anchor="middle" fill="#E4F0E0" font-size="12">Qwen3-0.6B-Q4_K_M</text>
+  <text x="600" y="1172" text-anchor="middle" fill="#E4F0E0" font-size="11.5">Domain: Agriculture</text>
+  <text x="600" y="1190" text-anchor="middle" fill="#E4F0E0" font-size="11.5">Runtime: llama.cpp</text>
+  <text x="600" y="1208" text-anchor="middle" fill="#E4F0E0" font-size="11.5">Context: 4,096 (fixed)</text>
+  <text x="600" y="1226" text-anchor="middle" fill="#E4F0E0" font-size="11.5">Peak RAM: ~769 MB</text>
+  <text x="600" y="1250" text-anchor="middle" fill="#FFD966" font-size="11" font-weight="700">Safety framing verified</text>
+  <text x="600" y="1266" text-anchor="middle" fill="#FFD966" font-size="11" font-weight="700">at inference — see REPORT.md</text>
+
+  <!-- Legend -->
+  <g font-size="12">
+    <rect x="60" y="1310" width="18" height="18" rx="4" fill="#DCEBFB" stroke="#3E7CB1"/>
+    <text x="85" y="1324" fill="#333333">Data</text>
+    <rect x="180" y="1310" width="18" height="18" rx="4" fill="#FDE8CC" stroke="#C97A1F"/>
+    <text x="205" y="1324" fill="#333333">Fine-tuning</text>
+    <rect x="340" y="1310" width="18" height="18" rx="4" fill="#D2F1EE" stroke="#1E7A72"/>
+    <text x="365" y="1324" fill="#333333">Quantization</text>
+    <rect x="500" y="1310" width="18" height="18" rx="4" fill="#FCEFDA" stroke="#8C5A1E"/>
+    <text x="525" y="1324" fill="#333333">Key innovation</text>
+    <rect x="670" y="1310" width="18" height="18" rx="4" fill="#FADADD" stroke="#B5323F"/>
+    <text x="695" y="1324" fill="#333333">Evaluation</text>
+    <rect x="830" y="1310" width="18" height="18" rx="4" fill="#2F5233"/>
+    <text x="855" y="1324" fill="#333333">Final output</text>
+  </g>
+</svg>
