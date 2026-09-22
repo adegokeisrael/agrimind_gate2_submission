@@ -19,7 +19,7 @@ MODEL_DIR="$HERE/model"
 # anything else in this file — see "download_model.sh" in README.md for what
 # the evaluator requires.
 MODEL_FILE="$MODEL_DIR/model-Q4_K_M.gguf"
-MODEL_URL="https://huggingface.co/EYEDOL/adtc-agri-sft-qwen3-0.6b-GGUF/resolve/e7010d1d3c547fdaba427b5d5141c0f79518a1e7/model-Q4_K_M.gguf"
+MODEL_URL="https://huggingface.co/EYEDOL/adtc-agri-sft-qwen3-0.6b-GGUF/resolve/29c7e03157fe758e7ae9f42e621a3925b0d841f8/model-Q4_K_M.gguf"
 
 mkdir -p "$MODEL_DIR"
 
